@@ -3,13 +3,19 @@
  */
 package com.app.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.business.ITestBusiness;
+import com.app.constants.URLConstants;
 import com.app.model.Person;
+import com.app.service.PersonService;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -19,22 +25,27 @@ import com.app.model.Person;
 public class TestController 
 {
 
-	/** The test business. */
-	private ITestBusiness testBusiness;
+	/** The person repo. */
+	@Autowired
+	private PersonService personService;
 
 	/**
-	 * @return the testBusiness
+	 * @return the personService
 	 */
-	public ITestBusiness getTestBusiness() {
-		return testBusiness;
+	public PersonService getPersonService()
+	{
+		return personService;
 	}
 
 	/**
-	 * @param testBusiness the testBusiness to set
+	 * @param personService the personService to set
 	 */
-	public void setTestBusiness(ITestBusiness testBusiness) {
-		this.testBusiness = testBusiness;
+	public void setPersonService(PersonService personService)
+	{
+		this.personService = personService;
 	}
+
+
 
 	/**
 	 * Createperson.
@@ -42,13 +53,12 @@ public class TestController
 	 * @param person the person
 	 * @return the string
 	 */
-	@RequestMapping(value="app/createperson",method=RequestMethod.POST)
+	@RequestMapping(value=URLConstants.URL_CREATE_PESON,method=RequestMethod.POST)
 	public String createperson(@RequestBody Person person)
 	{
 		try
 		{
-			System.out.println("Isnide createperson TestController:"+person.getFirstName());
-			testBusiness.createPerson(person);
+			personService.getPersonRepo().save(person);
 		}
 		catch(Exception e)
 		{
@@ -56,4 +66,71 @@ public class TestController
 		}
 		return "Person Created Successfully";
 	}
+
+	@RequestMapping(value=URLConstants.URL_GET_ALL_PESON,method=RequestMethod.GET)
+	public @ResponseBody Person getPerson()
+	{
+		Person retPerson = null;
+		try
+		{
+			personService.getPersonRepo().findAll();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return retPerson;
+	}
+
+	@RequestMapping(value=URLConstants.URL_GET_PESON,method=RequestMethod.GET)
+	public @ResponseBody List<Person> getPersonByName(@PathVariable("name") String firstName)
+	{
+		List<Person> personLst = null;
+		try
+		{
+			personLst = personService.getPersonRepo().findByFirstName(firstName);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return personLst;
+	}
+
+
+	@RequestMapping(value=URLConstants.URL_UPDATE_PESON,method=RequestMethod.PUT)
+	public void updatePerson(@RequestBody Person person)
+	{
+		try
+		{
+			System.out.println("Updating Person:"+person.getFirstName()+ " "+ person.getLastName());
+			personService.getPersonRepo().save(person);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value=URLConstants.URL_DELETE_PESON,method=RequestMethod.PUT)
+	public void deletePerson(@PathVariable("id") String id)
+	{
+		try
+		{
+			System.out.println("Deleting Person:"+id);
+			Person delPerson = personService.getPersonRepo().findOne(id);
+			System.out.println("Person to be deleted:"+delPerson);
+			personService.getPersonRepo().delete(delPerson);
+			System.out.println("Person Deleted");
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+
+
+
 }

@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+    
+	<!-- MongoDb Configurations -->
+	
+   	<mongo:mongo id="mongo" host="43.88.88.43" port="27017"/>
+   	
+   	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongo"/> 
+		<constructor-arg name="databaseName" value="test"/>
+	</bean>
+    
+    <mongo:repositories base-package="com.app.repositories"/>
+     
      
      <bean id="testController" class="com.app.controller.TestController">
-     		<property name="testBusiness" ref="testBusiness"/>
+     		<property name="personService" ref="personService"></property>
      </bean>
      
-     <bean id="testBusiness" class="com.app.business.TestBusiness">
-     	<property name="testBusinessDao" ref="testBusinessDao"/>
-     </bean>
+     <bean id="personService" class="com.app.service.PersonService"></bean>
      
-     <bean id="testBusinessDao" class="com.app.dao.TestBusinessDaoImpl"></bean>
-    
-    
+     
     </beans>
