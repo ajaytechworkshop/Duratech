@@ -6,11 +6,13 @@ package com.app.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.constants.URLConstants;
@@ -99,6 +101,7 @@ public class TestController
 
 
 	@RequestMapping(value=URLConstants.URL_UPDATE_PESON,method=RequestMethod.PUT)
+	@ResponseStatus(value=HttpStatus.OK)
 	public void updatePerson(@RequestBody Person person)
 	{
 		try
@@ -113,13 +116,13 @@ public class TestController
 	}
 
 	@RequestMapping(value=URLConstants.URL_DELETE_PESON,method=RequestMethod.PUT)
+	@ResponseStatus(value=HttpStatus.OK)
 	public void deletePerson(@PathVariable("id") String id)
 	{
 		try
 		{
 			System.out.println("Deleting Person:"+id);
 			Person delPerson = personService.getPersonRepo().findOne(id);
-			System.out.println("Person to be deleted:"+delPerson);
 			personService.getPersonRepo().delete(delPerson);
 			System.out.println("Person Deleted");
 
@@ -129,8 +132,4 @@ public class TestController
 			e.printStackTrace();
 		}
 	}
-
-
-
-
 }
