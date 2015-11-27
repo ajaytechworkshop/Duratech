@@ -9,7 +9,7 @@
     
 	<!-- MongoDb Configurations -->
 	
-   	<mongo:mongo id="mongo" host="43.88.88.43" port="27017"/>
+   	<mongo:mongo id="mongo" host="localhost" port="27017"/>
    	
    	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongo"/> 
@@ -19,11 +19,23 @@
     <mongo:repositories base-package="com.app.repositories"/>
      
      
-     <bean id="testController" class="com.app.controller.TestController">
-     		<property name="personService" ref="personService"></property>
+     <bean id="passengerController" class="com.app.controller.PassengerController">
+     		<property name="passengerService" ref="passengerService"></property>
      </bean>
      
-     <bean id="personService" class="com.app.service.PersonService"></bean>
+     <bean id="driverController" class="com.app.controller.DriverController">
+     	<property name="driverCrudService" ref="driverCrudService"></property>
+     </bean>
+     
+     <bean id="vehicleController" class="com.app.controller.VehicleController">
+     	<property name="vehicleService" ref="vehicleService"></property>
+     </bean>
+     
+     
+     
+     <bean id="passengerService" class="com.app.service.PassengerService"></bean>
+     <bean id="driverCrudService" class="com.app.service.DriverCrudService"></bean>
+     <bean id="vehicleService" class="com.app.service.VehicleService"></bean>
      
      
     </beans>
