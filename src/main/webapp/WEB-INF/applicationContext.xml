@@ -31,11 +31,16 @@
      	<property name="vehicleService" ref="vehicleService"></property>
      </bean>
      
+     <bean id="tripController" class="com.app.controller.TripController">
+     	<property name="tripService" ref="tripService"></property>
+     </bean>
+     
      
      
      <bean id="passengerService" class="com.app.service.PassengerService"></bean>
      <bean id="driverCrudService" class="com.app.service.DriverCrudService"></bean>
      <bean id="vehicleService" class="com.app.service.VehicleService"></bean>
+     <bean id="tripService" class="com.app.service.TripService"></bean>
      
      
     </beans>

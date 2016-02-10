@@ -18,4 +18,5 @@ public class URLConstants
 	public static final String URL_GET_ALL_DRIVER = "app/getalldrivers";
 	public static final String URL_SAVE_VEHICLE = "app/createvehicle";
 	public static final String URL_GET_ALL_VEHICLES = "app/getallvehicles";
+	public static final String URL_CREATE_TRIP = "app/createtrip";
 }
