@@ -144,4 +144,15 @@ public class Passenger
 		this.lastName = lastName;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Passenger [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
+				+ phoneNumber + ", email=" + email + ", mobileNo=" + mobileNo + "]";
+	}
+
+
+
 }

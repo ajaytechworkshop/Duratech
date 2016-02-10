@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.commons.Publisher;
 import com.app.constants.URLConstants;
+import com.app.model.Bidding;
 import com.app.model.Trip;
 import com.app.service.TripService;
 
@@ -19,7 +21,7 @@ import com.app.service.TripService;
 @RestController
 public class TripController 
 {
-	
+
 	/** The vehicle service. */
 	private TripService tripService;
 
@@ -42,7 +44,7 @@ public class TripController
 	{
 		this.tripService = tripService;
 	}
-	
+
 	@RequestMapping(value=URLConstants.URL_CREATE_TRIP,method=RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.OK)
 	public void saveTrip(@RequestBody Trip trip)
@@ -57,5 +59,12 @@ public class TripController
 		{
 			e.printStackTrace();
 		}
+	}
+
+	@RequestMapping(value=URLConstants.URL_UPDATE_BID+"/{tripId}",method=RequestMethod.PUT)
+	@ResponseStatus(value=HttpStatus.OK)
+	public void updateBidForTrip(@RequestBody Bidding bidding,@PathVariable("tripId") String tripId)
+	{		
+		tripService.updateBid(tripId, bidding);
 	}
 }

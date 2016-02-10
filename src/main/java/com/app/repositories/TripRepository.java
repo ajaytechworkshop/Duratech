@@ -9,5 +9,5 @@ import com.app.model.Trip;
  */
 public interface TripRepository extends MongoRepository<Trip, String> 
 {
-	
+
 }

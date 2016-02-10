@@ -106,4 +106,14 @@ public class Vehicle
 	{
 		this.ac = ac;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Vehicle [id=" + id + ", model=" + model + ", seatCapacity=" + seatCapacity + ", ac=" + ac + "]";
+	}
+
+
 }

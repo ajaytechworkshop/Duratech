@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Document(collection="Trip")
 public class Trip
 {
-	
+
 	/** The id. */
 	@Id
 	private String id;
@@ -33,6 +33,12 @@ public class Trip
 
 	/** The destination. */
 	private String destination;
+
+	/** The distance. */
+	private String distance;
+
+	/** The bidding. */
+	private List<Bidding> biddings;
 
 	/**
 	 * Gets the id.
@@ -142,11 +148,7 @@ public class Trip
 		this.biddings = biddings;
 	}
 
-	/** The distance. */
-	private String distance;
 
-	/** The bidding. */
-	private List<Bidding> biddings;
 
 	@Override
 	public String toString() {
@@ -154,7 +156,7 @@ public class Trip
 				+ source + ", destination=" + destination + ", distance="
 				+ distance + ", biddings=" + biddings + "]";
 	}
-	
+
 	public String toJson()
 	{
 		ObjectMapper mapper = new ObjectMapper();
@@ -166,5 +168,5 @@ public class Trip
 		}
 		return null;
 	}
-	
+
 }

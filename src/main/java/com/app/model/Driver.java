@@ -264,4 +264,17 @@ public class Driver
 	/** The nationality. */
 	private String nationality;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() 
+	{
+		return "Driver [id=" + id + ", driverName=" + driverName + ", age=" + age + ", gender=" + gender
+				+ ", contactNumber1=" + contactNumber1 + ", contactNumber2=" + contactNumber2 + ", vehicleId="
+				+ vehicleId + ", vehicleOwningCompany=" + vehicleOwningCompany + ", address=" + address + ", region="
+				+ region + ", city=" + city + ", state=" + state + ", nationality=" + nationality + "]";
+	}
+
+
 }
