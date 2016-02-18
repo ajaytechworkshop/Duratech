@@ -10,8 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author 5013505250
  *
  */
-@Document(collection="Bidder")
-public class Bidding
+@Document(collection="Bidding")
+public class Bidding implements Comparable<Bidding>
 {
 
 	/** The id. */
@@ -120,6 +120,20 @@ public class Bidding
 			return false;
 		}
 		return true;
+	}
+
+	public int compareTo(Bidding obj) 
+	{
+		if(this.getBidAmount() == obj.getBidAmount())
+		{
+			return 0;
+		}
+		else if (this.getBidAmount() > obj.getBidAmount())
+		{
+			return 1;
+		}
+		else
+			return -1;
 	}
 
 }

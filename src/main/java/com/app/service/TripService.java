@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -70,6 +71,7 @@ public class TripService
 		try
 		{
 			Trip tripToUpdate = tripRepo.findOne(tripId);
+			System.out.println("***Bid to save:"+bid.toString());
 			biddingRepo.save(bid);
 
 			if(tripToUpdate != null && tripToUpdate.getBiddings() == null)
@@ -94,9 +96,10 @@ public class TripService
 				}
 			}
 
+			Collections.sort(tripToUpdate.getBiddings());
 			tripRepo.save(tripToUpdate);
 			System.out.println("Updated Trip:"+tripToUpdate.toJson());
-
+			
 			//Publish the message to RabbitMQ exchnage so that new bid value will be updated to the drivers
 			Publisher.publishMessageToExchange(tripToUpdate.toJson(),"BIDDING_EXCHANGE");
 		}
